@@ -3,7 +3,7 @@
 // WordPress Downloader is released under the GPL Version 2, June 1991
 // http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
-if ($_REQUEST)
+if ($_GET OR $_POST)
 {
 	try
 	{
@@ -26,7 +26,11 @@ if ($_REQUEST)
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_FAILONERROR, TRUE);
 		curl_setopt($ch, CURLOPT_HEADER, 0); 
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+		
+		// may produce the following PHP warning: CURLOPT_FOLLOWLOCATION cannot be activated when in safe_mode or an open_basedir is set
+		// todo: find a work around if this becomes a serious issue (the assumption is that most download links will not have redirects)
+		@curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+
 		curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
 		curl_setopt($ch, CURLOPT_BINARYTRANSFER, TRUE);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 120);
@@ -158,7 +162,7 @@ $url = !isset($_REQUEST['url']) ? 'http://wordpress.org/latest.zip' : $_REQUEST[
 
 $kwf = (isset($_REQUEST['kwf']) AND $_REQUEST['kwf']==1) ? ' checked="checked"' : '' ;
 
-$ds = (empty($_REQUEST) OR (isset($_REQUEST['ds']) AND $_REQUEST['ds']==1)) ? ' checked="checked"' : '' ;
+$ds = (empty($_REQUEST['ds']) OR (isset($_REQUEST['ds']) AND $_REQUEST['ds']==1)) ? ' checked="checked"' : '' ;
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
