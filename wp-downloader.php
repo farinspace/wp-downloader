@@ -184,7 +184,7 @@ $ds = (empty($_REQUEST['ds']) OR (isset($_REQUEST['ds']) AND $_REQUEST['ds']==1)
 	<?php if ($_REQUEST AND !empty($status)): ?>
 
 		<p class="message<?php echo $status['error'] ? ' error' : ' success' ; ?>"><?php echo $status['message']; ?></p>
-		<?php if (!$status['error']): ?><p><br/><a class="button" href="<?php echo !empty($wordpress_folder) ? $wordpress_folder : '' ; ?>index.php">Cotniue to configure WordPress...</a></p><?php endif; ?>
+		<?php if (!$status['error']): ?><p><br/><a class="button" href="<?php echo !empty($wordpress_folder) ? $wordpress_folder : '' ; ?>index.php">Continue to configure WordPress...</a></p><?php endif; ?>
 
 	<?php endif; ?>
 
